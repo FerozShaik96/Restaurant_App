@@ -6,12 +6,12 @@ const MealItem = (props) => {
   return (
     <li className={classes.meal}>
       <div>
-        <h3>{props.name}</h3>
-        <div className={classes.description}>{props.description}</div>
+        <h3>{props.Name}</h3>
+        <div className={classes.description}>{props.Description}</div>
         <div className={classes.price}>{Price}</div>
       </div>
       <div>
-        <MealForm />
+        <MealForm id={props.id} />
       </div>
     </li>
   );
