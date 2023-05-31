@@ -1,17 +1,33 @@
-import React, { useContext } from "react";
-import CartContext from "../../../../store/Cart-context";
+import React, { useContext, useRef, useState } from "react";
+// import CartContext from "../../../../store/Cart-context";
 import Input from "../../../UI/Input/Input";
 import classes from "./MealForm.module.css";
 const MealForm = (props) => {
-  const Cartcntxt = useContext(CartContext);
-  const ContextChangeHandler = (event) => {
+  // const Cartcntxt = useContext(CartContext);
+  // const ContextChangeHandler = (event) => {
+  //   event.preventDefault();
+  //   const quantity = document.getElementById("amount_" + props.id).value;
+  //   Cartcntxt.addItem({ ...props.item, quantity: quantity });
+  // };
+  const amountInputRef = useRef();
+  const submitHandler = (event) => {
     event.preventDefault();
-    Cartcntxt.addItem(props.item);
+    const enteredAmount = amountInputRef.current.value;
+    const enteredAmountNumber = +enteredAmount;
+    if (
+      enteredAmount.trim().length === 0 ||
+      enteredAmountNumber < 1 ||
+      enteredAmountNumber > 5
+    ) {
+      return;
+    }
+    props.onAddToCart(enteredAmountNumber);
   };
+
   return (
-    <form className={classes.form}>
-      {console.log("inside ", Cartcntxt.items)}
+    <form className={classes.form} onSubmit={submitHandler}>
       <Input
+        ref={amountInputRef}
         label="Amount"
         input={{
           id: "amount_" + props.id,
@@ -22,7 +38,8 @@ const MealForm = (props) => {
           defaultValue: "1",
         }}
       />
-      <button onClick={ContextChangeHandler}>+ Add</button>
+      {/* <button onClick={ContextChangeHandler}>+ Add</button> */}
+      <button>+ Add</button>
     </form>
   );
 };
