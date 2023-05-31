@@ -38,6 +38,7 @@ const AvailableMeals = () => {
         name={name}
         description={description}
         price={price}
+        items={meal}
       />
     );
   });
